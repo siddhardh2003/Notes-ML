@@ -1,0 +1,13 @@
+.MainDiv
+{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    width: 60%;
+    /* height: 50vw; */
+    margin-left: 20vw;
+    text-align: center;
+    padding: 50px;
+    padding-top: 40px;
+}

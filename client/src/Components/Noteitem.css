@@ -1,0 +1,50 @@
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f0f0f0; /* Optional: background color for the container */
+}
+
+.Notecard {
+    margin: 10px;
+    width: 250px;
+    height: 275px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: block;
+}
+.CardBody
+{
+    height: 150px;
+}
+
+.Title {
+    text-align: center;
+    /* font-size: 20px; */
+    margin-bottom: 30px;
+}
+
+.DeleteButton {
+    background-color: red;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    width: 70%;
+}
+
+.NoteFooter {
+    /* margin-bottom: 10px;  */
+    display: flex;
+    /* margin-top: 70px; */
+    align-items: center;
+    flex-direction: column;
+    
+}

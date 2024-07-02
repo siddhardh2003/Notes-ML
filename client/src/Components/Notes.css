@@ -1,0 +1,124 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ececec;
+}
+
+/* .notes-container {
+  margin-top: 150px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.notes-form {
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: auto;
+  background-color: #fff;
+}
+
+.notes-form h2 {
+  margin: 0 0 20px;
+}
+
+.notes-form input {
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.notes-form input:hover {
+  border-color: #007bff;
+}
+
+.notes-form button {
+  width: 40%;
+  margin-left: 30px;
+  height: 40px;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: -10px;
+  transition: background-color 0.3s ease;
+}
+
+.notes-container {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: flex-start; */
+  margin-top: 30px;
+}
+
+.form-container {
+  margin: auto;
+  margin-top: 20pxpx;
+  width: 30%;
+  margin-bottom: 40px;;
+}
+
+.notes-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  margin-top: 40px;
+  gap: 20px;
+  padding: 10%;
+  padding-top: 0px;
+}
+
+.notes-form {
+  width: 100%;
+}
+
+.DeleteButton {
+  background-color: red;
+}
+
+.DeleteButton:hover {
+  background-color: red;
+}
+
+.AddButton:hover {
+  background-color: rgb(130, 209, 13);
+}
+
+.AddButton {
+  background-color: rgb(130, 209, 13);
+}
+
+.Notebuttons {
+  display: flex;
+  justify-content: center;
+}
+.search-bar
+{
+  height: 40px;
+  width:400px;
+  margin-bottom: 20px;
+  padding: 0 8px;
+  /* border: 1px solid #ddd; */
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin: auto;
+  padding: auto;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff; */
+}
+.search-bar input:hover {
+  border-color: #007bff;
+}
+.search-bar input{
+  border: 1px solid #ddd;
+}
