@@ -8,18 +8,28 @@ import AboutUs from './Components/AboutUs';
 import Navigating from './Components/Navigating';
 import Notes from './Components/Notes';
 import NoteDetail from './Components/NoteDetail';
+import Cookies from 'js-cookie';
 
 function App() {
-  const [username, setUsername] = useState(localStorage.getItem('username') || null);
+  // const [username, setUsername] = useState(localStorage.getItem('username') || null);
+
+  // useEffect(() => {
+  //   console.log('Username:', username);
+  //   if (username) {
+  //     localStorage.setItem('username', username);
+  //   } else {
+  //     localStorage.removeItem('username');
+  //   }
+  // }, [username]);
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
-    console.log('Username:', username);
-    if (username) {
-      localStorage.setItem('username', username);
-    } else {
-      localStorage.removeItem('username');
+    const cookieNameValue =  Cookies.get('username');
+    if(cookieNameValue){
+      setUsername(cookieNameValue);
+      console.log(username);
     }
-  }, [username]);
+  }, []);
 
   return (
     <div className="App">

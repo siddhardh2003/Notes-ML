@@ -6,7 +6,19 @@ import { useNavigate } from 'react-router-dom';
 const Nav = ({ username, setUsername }) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    
+    try {
+      const response = await fetch(`http://localhost:4000/logout?username=${username}`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+    
+      const data = await response.text(); 
+      console.log(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
     setUsername(null);
     navigate('/');
   };

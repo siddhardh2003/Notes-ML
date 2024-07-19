@@ -1,20 +1,30 @@
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cors = require('cors');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
+
+
 
 const app = express();
 const port = 4000;
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:7000', 
+  credentials: true, 
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 const users = [];
 const notes = [];
 let noteIdCounter = 1;
 
-// Sign-up endpoint
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
   
   const existingUser = users.find(user => user.email === email);
@@ -22,24 +32,57 @@ app.post('/signup', (req, res) => {
     return res.status(400).json({ message: 'User already exists' });
   }
 
-  users.push({ username, email, password });
-  console.log({ username, email, password });
+  const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT));
+  const jwtToken = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: '1d' });
+  
+  res.cookie('jwtToken', jwtToken, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+  res.cookie('username', username, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+  
+  users.push({ username, email, password: hashedPassword, jwtToken });
+  console.log({ username, email, password: hashedPassword, jwtToken });
+  
   res.status(201).json({ message: 'Sign up successful', username: username });
 });
 
 // Sign-in endpoint
-app.post('/signin', (req, res) => {
-  const { username, email, password } = req.body;
-  
-  const user = users.find(user => user.email === email && user.password === password);
-  
+app.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = users.find(user => user.email === email);
   if (user) {
-    res.status(200).json({ message: 'Sign in successful', username: user.username });
-    console.log(user.username);
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    if (isPasswordMatched) {
+      const newJwtToken = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '1d' });
+      user.jwtToken = newJwtToken;
+
+      res.cookie('jwtToken', newJwtToken, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+      res.cookie('username', user.username, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+
+      res.status(200).json({ message: 'Sign in successful', username: user.username });
+      console.log(user.username);
+    } else {
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
   } else {
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });
+
+//logout endpoint
+app.post('/logout', (req, res) => {
+  const { username } = req.query; 
+  const user = users.find(user => user.username === username);
+  
+  if (user) {
+    user.jwtToken = null;
+    res.clearCookie('jwtToken');
+    res.clearCookie('username');
+    res.status(200).send('User Logged Out');
+  } else {
+    res.status(400).send('User not found');
+  }
+});
+
 
 // Get notes endpoint
 app.get('/notes', (req, res) => {

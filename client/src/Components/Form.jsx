@@ -18,6 +18,7 @@ function Form({ setUsername, endpoint }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, email, password }),
+        credentials: 'include',
       });
 
       if (response.ok) {
