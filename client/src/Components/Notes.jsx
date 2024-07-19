@@ -17,8 +17,9 @@ const Notes = ({ username }) => {
       try 
       {
         console.log("i an sending GET request");
+        console.log(username);
         const response = await fetch(`http://localhost:4000/notes?username=${username}`, {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -30,7 +31,8 @@ const Notes = ({ username }) => {
           setNotes(data);
         } 
         else {
-          console.error('Error:', response.statusText);
+
+          console.error('Error in notes:', response.statusText);
         }
       } 
       catch (error) {

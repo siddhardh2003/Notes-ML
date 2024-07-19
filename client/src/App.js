@@ -21,14 +21,17 @@ function App() {
   //     localStorage.removeItem('username');
   //   }
   // }, [username]);
-  const [username, setUsername] = useState(null);
-
-  useEffect(() => {
+  const [username, setUsername] = useState(Cookies.get('username')||null);
+  let setname=async()=>{
     const cookieNameValue =  Cookies.get('username');
+    console.log(cookieNameValue);
     if(cookieNameValue){
-      setUsername(cookieNameValue);
+      await setUsername(cookieNameValue);
       console.log(username);
     }
+  }
+  useEffect( () => {
+    setname();
   }, []);
 
   return (

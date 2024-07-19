@@ -72,6 +72,8 @@ app.post('/signin', async (req, res) => {
 app.post('/logout', (req, res) => {
   const { username } = req.query; 
   const user = users.find(user => user.username === username);
+  console.log()
+  console.log(`hi ${username}`)
   
   if (user) {
     user.jwtToken = null;
@@ -87,6 +89,7 @@ app.post('/logout', (req, res) => {
 // Get notes endpoint
 app.get('/notes', (req, res) => {
   const { username } = req.query;
+  console.log(`notes ${username}`);
   if (!username) {
     return res.status(400).json({ message: 'Username is required' });
   }
